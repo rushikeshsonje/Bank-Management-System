@@ -1,0 +1,191 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindUser</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</head>
+<style>
+    body{
+        height: 41.8rem;
+    }
+    table,
+    th,
+    td {
+        text-align: center;
+
+    }
+
+    /* .header {
+        background: rgb(21, 178, 226);
+    } */
+
+    a{
+        text-decoration: none;
+    }
+
+    .back {
+        text-decoration: none;
+        font-size: 1rem;
+        color: black;
+        border: 1px solid black;
+        padding: .5rem;
+        width: 10%;
+        text-align: center;
+        border-radius: 5px;
+        background-color: rgb(195, 59, 236);
+    }
+    .data{
+        width: 90% !important;
+    }
+    @media (max-width: 800px) {
+        .data{
+            width: 100% !important;
+        }
+    }
+    @media (max-width: 730px) {
+        .back{
+            width: 16%;
+            font-size: 0.9rem;
+        }
+    }
+    @media (max-width: 465px) {
+        .back{
+            width: 21%;
+        }
+    }
+    @media (max-width: 340px) {
+        .back{
+            width: 25%;
+        }
+    }
+
+</style>
+<body>
+    <div class="container-fluid">
+        <%- include('./navigation.ejs') %>
+        <div class="back mt-3">
+            <i class="bi bi-skip-backward-fill"></i>
+            <a class="text-dark text-decoration-none" href="/employee">Back</a>
+        </div>
+        <div class="row d-flex justify-content-between">
+            <div class="name col-8 mt-3 ms-5">
+                <h4>User Found --> <%= user.name %></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <p class="d-flex justify-content-center">
+                <a class="btn btn-primary me-3" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    View Account Balance
+                </a>
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample1" role="button"
+                    aria-expanded="false" aria-controls="collapseExample1">
+                    See Personal Details
+                </a>
+            </p>
+        </div>
+        <div class="collapse" id="collapseExample">
+            <div class="card fw-bolder card-body text-center">
+                <%= user.accbalance %>
+            </div>
+        </div>
+        <div class="collapse" id="collapseExample1">
+            <div class="card card-body">
+                <div class="container data p-4">
+                    <table class="table table-bordered table-hover table-info border-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">Fields</th>
+                                <th scope="col">Data</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Name</th>
+                                <td>
+                                    <%= user.name %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td>
+                                    <%= user.email %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Account Number</th>
+                                <td>
+                                    <%= user.accno %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Mobile Number</th>
+                                <td>
+                                    <%= user.mobileno %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Adhar Number</th>
+                                <td>
+                                    <%= user.adharno %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Date Of Birth</th>
+                                <td>
+                                    <%= user.dob %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Balance</th>
+                                <td>
+                                    <%= user.accbalance %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Address</th>
+                                <td>
+                                    <%= user.address %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">State</th>
+                                <td>
+                                    <%= user.state %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">District</th>
+                                <td>
+                                    <%= user.district %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">City</th>
+                                <td>
+                                    <%= user.city %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">gender</th>
+                                <td>
+                                    <%= user.gender %>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

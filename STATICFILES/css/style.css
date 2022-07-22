@@ -1,0 +1,226 @@
+/* @font-face {
+    font-family: BeVietnamPro;
+    src: url(BeVietnamPro-Regular.ttf);
+
+}
+
+@font-face {
+    font-family: BeVietnamPro;
+    src: url(BeVietnamPro-Bold.ttf);
+    font-weight: bold;
+} */
+
+
+body {
+    font-family: BeVietnamPro;
+}
+
+.header {
+    background: linear-gradient(90deg, #317189 50%, #00d2ff);
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid white;
+}
+
+.main-site,
+.justify-content-center,
+.container,
+.d-flex {
+    padding: 0 0;
+}
+
+.errormessage{
+    z-index: 2;
+}
+
+
+.container-fluid {
+    /* border: 3px solid salmon; */
+    padding: 0 0;
+}
+.main-site .site-banner .starbg {
+    background-image: url('../img/bg6.jpg');
+    height: 42rem;
+    display: inline-block;
+    margin-top: 0rem;
+    background-position:top;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
+    background-size: cover;
+}
+
+
+.main-site .site-banner .site-title {
+    border-radius: 1rem;
+    width: 30rem;
+    background: linear-gradient(322deg, #245f74 50%, #00d2ff);
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    /* margin: 18rem 0rem 0rem 4rem; */
+    margin-top: 6rem;
+    margin-left: 5rem;
+    height: 25rem;
+    z-index: 1;
+}
+
+.main-site .site-banner .site-title h1 {
+    color: white;
+}
+
+/* .main-site .site-banner .site-title .site-buttons .modal-content .modal-body input.invalid{
+    border: red;
+} */
+
+.error input.invalid{
+    border: 1px solid red;
+}
+
+.main-site .site-banner .row {
+    margin-right: 0;
+}
+
+.banner-image {
+    margin-top: -6.5rem;
+    width: 700px;
+    height: 700px;
+    position: relative;
+    /* animation-name: example;
+    animation-duration: 5s;  */
+}
+
+@keyframes example {
+    0% {
+        left: -800px;
+        top: 0px;
+    }
+
+    25% {
+        left: 0px;
+        top: 0px;
+    }
+}
+
+
+.main-site .about-us{
+    background: linear-gradient(90deg, #317189 50%, #00d2ff);
+    border-bottom: 1px solid white;
+
+}
+.main-site .about-us .about-title {
+    font-family: BeVietnamPro;
+    margin-top: 4rem;
+}
+
+.main-site .about-us .about-content,
+.about-info {
+    font-size: 1.3rem;
+}
+
+.about-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.main-site .services {
+    background: linear-gradient(90deg, #317189 50%, #00d2ff);
+    
+}
+
+.main-site .services .services-title{
+    margin-top: 4rem;
+    /* border: 3px solid red; */
+}
+
+.main-site .services .services-section {
+    /* border: 3px solid #a812ff; */
+    /* background-color: #33d1ec;     */
+    background-color: #12bce117;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 12px 2px rgb(0, 0, 0);
+    height: 21rem;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/* footer  */
+.footer {
+    background: linear-gradient(90deg, #317189 50%, #00d2ff);
+    /* background: linear-gradient(to right, #a812ff, #2dd3d3); */
+    min-height: 90vh;
+    border-top: 1px solid white;
+}
+
+.footer-section{
+    background: linear-gradient(90deg, #317189 50%, #00d2ff);
+    width: 100%;
+    height: 32.8rem;
+    border: 30px solid white;
+    border-bottom: none;
+}
+
+#button-addon1 {
+    color: #75319c;
+}
+
+i {
+    color: #000000;
+}
+
+footer h1 {
+    padding-top: 1rem;
+}
+
+.form-control::placeholder {
+    font-size: 0.95rem;
+    color: rgb(34, 34, 34);
+    /* font-style: italic; */
+}
+
+.form-control.shadow-0:focus {
+    box-shadow: none;
+}
+
+h6{
+    color: rgb(28, 62, 136);
+}
+
+
+
+@media (max-width: 1000px) {
+    .main-site .site-banner .site-title {
+        margin: auto;
+        margin-top: 4rem;
+        width: 50%;
+    }
+    .image{
+        display: none;
+    }
+    .main-site .services .services-section {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .remove-sm{
+        display: none;
+    }
+}
+@media (max-width: 700px) {
+    .main-site .site-banner .site-title {
+        width: 80%;
+    }
+}
+@media (max-width: 600px) {
+    .main-site .site-banner .site-title {
+        width: 80%;
+    }
+}

@@ -1,0 +1,17 @@
+body{
+    background: #2dd3d3;
+}
+
+.formdata{
+    margin-top: 10rem;
+}
+
+.rowdata{
+    background: #a812ff;
+    width: 28rem;
+    border-radius: 15px;
+}
+
+label{
+    font-weight: bold;
+}

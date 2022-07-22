@@ -1,0 +1,375 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="css/employee.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <%- include('./navigation.ejs') %>
+            <div class="row d-flex justify-content-between">
+                <div class="name col-8 mt-3 ms-2 ms-sm-5">
+                    <h4>Welcome <%= user[0].name %>
+                    </h4>
+                </div>
+            </div>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <div class="row mt-1 w-50">
+            <% if(message.length> 0) { %>
+                <div class="alert alert-success text-center">
+                    <%= message %>
+                </div>
+                <% } %>
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <div class="row mt-1 w-50">
+            <% if(message1.length> 0) { %>
+                <div class="alert alert-danger text-center">
+                    <%= message1 %>
+                </div>
+                <% } %>
+        </div>
+    </div>
+    <% if(isAuthenticated) { %>
+    <div class="container edit-details">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center mb-3">
+                <h1>Employee Panel</h1>
+            </div>
+        </div>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link <%= hasError || hasError2 ? '': 'active' %>" id="nav-acc-details-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-acc-details" type="button" role="tab" aria-controls="nav-home"
+                    aria-selected="true">Account Details</button>
+                <button class="nav-link <%= hasError ? 'active': '' %>" id="nav-add-customer-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-add-customer" type="button" role="tab" aria-controls="nav-profile"
+                    aria-selected="false">Add Customer</button>
+                <button class="nav-link <%= hasError2 ? 'active': '' %> " id="nav-add-employee-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-add-employee" type="button" role="tab" aria-controls="nav-contact"
+                    aria-selected="false">Add Employee</button>
+                <button class="nav-link" id="nav-remove-customer-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-remove-customer" type="button" role="tab" aria-controls="nav-contact"
+                    aria-selected="false">Remove Customer</button>
+                <button class="nav-link" id="nav-credit-fund-tab" data-bs-toggle="tab" data-bs-target="#nav-credit-fund"
+                    type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Credit Fund</button>
+                <button class="nav-link" id="nav-debit-fund-tab" data-bs-toggle="tab" data-bs-target="#nav-debit-fund"
+                    type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Debit Fund</button>
+                <button class="nav-link" id="nav-transfer-fund-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-transfer-fund" type="button" role="tab" aria-controls="nav-contact"
+                    aria-selected="false">Transfer Fund</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade <%= hasError || hasError2 ? '': 'show active' %>" id="nav-acc-details" role="tabpanel"
+                aria-labelledby="nav-acc-details-tab">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-10 d-flex justify-content-center my-4">
+                            <h3 class="">Find Account Details</h3>
+                        </div>
+                        <div class="col-md-5">
+                            <form class="input-group" action="/employee-findaccount" method="post">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                <input type="number" name="accno" class="form-control"
+                                    placeholder="Enter Account Number" aria-label="Recipient's username"
+                                    aria-describedby="button-addon2">
+                                <button class="btn btn-info text-dark" type="submit" id="button-addon2">Find
+                                    Details</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade <%= hasError ? 'show active': '' %>" id="nav-add-customer" role="tabpanel" aria-labelledby="nav-add-customer-tab">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-10 d-flex justify-content-center my-4">
+                            <h3 class="">Add New Customer</h3>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <form class="row d-flex justify-content-center" action="/employee-addcustomer" method="post">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <div class="error col-md-3 my-3">
+                                <input type="text" class="form-control <%= validationErrors.find(e => e.param === 'name') ? 'invalid': '' %>" placeholder="Name" aria-label="name"
+                                    name="name" value="<%= oldInputCustomer.name %>">
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="email" class="form-control <%= validationErrors.find(e => e.param === 'email') ? 'invalid': '' %>" placeholder="Email Address" aria-label="email"
+                                    name="email" value="<%= oldInputCustomer.email %>">
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="password" class="form-control <%= validationErrors.find(e => e.param === 'password') ? 'invalid': '' %>" placeholder="Password" aria-label="password"
+                                name="password" value="<%= oldInputCustomer.password %>">
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="password" class="form-control <%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid': '' %>" placeholder="Confirm Password" aria-label="confirmPassword"
+                                name="confirmPassword" value="<%= oldInputCustomer.confirmPassword %>">
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="number" class="form-control <%= validationErrors.find(e => e.param === 'mobileno') ? 'invalid': '' %>" placeholder="Mobile Number"
+                                    aria-label="mobileno" name="mobileno" value="<%= oldInputCustomer.mobileno %>">
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="number" class="form-control <%= validationErrors.find(e => e.param === 'adharno') ? 'invalid': '' %>" placeholder="Aadhar Number"
+                                    aria-label="adharno" name="adharno" value="<%= oldInputCustomer.adharno %>">
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="date" class="form-control <%= validationErrors.find(e => e.param === 'dob') ? 'invalid': '' %>" placeholder="Date Of Birth" aria-label="dob"
+                                    name="dob" value="<%= oldInputCustomer.dob %>">
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="number" class="form-control <%= validationErrors.find(e => e.param === 'accno') ? 'invalid': '' %>" placeholder="Account Number"
+                                    aria-label="accno" name="accno" value="<%= oldInputCustomer.accno %>">
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="number" class="form-control <%= validationErrors.find(e => e.param === 'accbalance') ? 'invalid': '' %>" placeholder="Account Balance"
+                                    aria-label="accbalance" name="accbalance" value="<%= oldInputCustomer.accbalance %>">
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="text" class="form-control <%= validationErrors.find(e => e.param === 'address') ? 'invalid': '' %>" placeholder="Address" aria-label="add" value="<%= oldInputCustomer.address %>" name="address" >
+                            </div>
+                            <div class="col-md-3 my-3">
+                                <select class="form-select" name="state" value="<%= oldInputCustomer.state %>" aria-label=".form-select-lg example">
+                                    <option selected>Select State</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chandigarh">Chandigarh</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                    <option value="Daman and Diu">Daman and Diu</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Lakshadweep">Lakshadweep</option>
+                                    <option value="Puducherry">Puducherry</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Manipur">Manipur</option>
+                                    <option value="Meghalaya">Meghalaya</option>
+                                    <option value="Mizoram">Mizoram</option>
+                                    <option value="Nagaland">Nagaland</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Sikkim">Sikkim</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Tripura">Tripura</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Uttarakhand">Uttarakhand</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                </select>
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="text" class="form-control <%= validationErrors.find(e => e.param === 'district') ? 'invalid': '' %>" placeholder="District" aria-label="district"value="<%= oldInputCustomer.district %>" name="district" >
+                            </div>
+                            <div class="error col-md-3 my-3">
+                                <input type="text" class="form-control <%= validationErrors.find(e => e.param === 'city') ? 'invalid': '' %>" placeholder="City" aria-label="city" value="<%= oldInputCustomer.city %>" name="city">
+                            </div>
+                            <div class="col-md-3 mt-3">
+                                <select class="form-select" name="gender" value="<%= oldInputCustomer.gender %>" aria-label=".form-select-lg example">
+                                    <option selected>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mt-3">
+                                <input class="btn btn-info w-100" type="submit" value="Submit">
+                            </div>
+                            <!-- <div class="col-md-3 mt-3">
+                                <input class="btn btn-danger border border-danger w-100" type="reset" value="Reset">
+                            </div> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade <%= hasError2 ? 'show active': '' %>" id="nav-add-employee" role="tabpanel" aria-labelledby="nav-add-employee-tab">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-10 d-flex justify-content-center my-4">
+                            <h3 class="">Add New Employee</h3>
+                        </div>
+                    </div>
+                    <form class="row d-flex justify-content-center" action="/employee-addemployee" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <div class="error col-md-3">
+                            <input type="text" class="form-control <%= validationErrors.find(e => e.param === 'name') ? 'invalid': '' %>" placeholder="Enter Name" aria-label="name"
+                                name="name" value="<%= oldInput.name %>">
+                        </div>
+                        <div class="error col-md-3">
+                            <input type="email" class="form-control <%= validationErrors.find(e => e.param === 'email') ? 'invalid': '' %>" placeholder="Enter Email" aria-label="email"
+                                name="email" value="<%= oldInput.email %>">
+                        </div>
+                        <div class="error col-md-3">
+                            <input type="password" class="form-control <%= validationErrors.find(e => e.param === 'password') ? 'invalid': '' %>" placeholder="Enter Password"
+                                aria-label="password" name="password" value="<%= oldInput.password %>">
+                        </div>
+                        <div class="error col-md-3">
+                            <input type="password" class="form-control <%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid': '' %>" placeholder="Confirm Password"
+                                aria-label="confirmPassword" name="confirmPassword" value="<%= oldInput.confirmPassword %>">
+                        </div>
+                        <div class="col-md-3 ms-2 mt-4">
+                            <input class="btn btn-info w-100" type="submit" value="Submit">
+                        </div>
+                        <!-- <div class="col-md-3 me-2 mt-4">
+                            <input class="btn btn-danger border border-danger w-100" type="reset" value="Reset">
+                        </div> -->
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-remove-customer" role="tabpanel"
+                aria-labelledby="nav-remove-customer-tab">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-10 d-flex justify-content-center my-4">
+                            <h3 class="">Remove Account</h3>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group mb-3">
+                                <form class="input-group" action="/employee-removecustomer" method="post">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <input type="number" class="form-control" placeholder="Enter Account Number"
+                                        aria-label="Recipient's username" aria-describedby="button-addon2" name="accno">
+                                    <button class="btn btn-info text-dark" type="submit" id="button-addon2">Remove
+                                        Account</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-credit-fund" role="tabpanel" aria-labelledby="nav-credit-fund-tab">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-10 d-flex justify-content-center my-4">
+                            <h3 class="">Credit Funds</h3>
+                        </div>
+                    </div>
+                    <form class="row d-flex justify-content-center" action="/employee-creditfund" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <div class="col-md-4">
+                            <label class="visually-hidden" for="credit-acc-no">Username</label>
+                            <div class="input-group">
+                                <div class="input-group-text">Account Number</div>
+                                <input type="number" class="form-control" name="accno" id="credit-acc-no">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="visually-hidden" for="credit-amount">Username</label>
+                            <div class="input-group">
+                                <div class="input-group-text">Amount(Rs.)</div>
+                                <input type="number" name="ammount" class="form-control" id="credit-amount">
+                            </div>
+                        </div>
+                        <div class="col-md-3 float-none">
+                            <button class="btn btn-info text-dark my-3" type="submit" id="button-addon2">Credit
+                                Funds</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-debit-fund" role="tabpanel" aria-labelledby="nav-debit-fund-tab">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-12 d-flex justify-content-center my-4">
+                            <h3 class="">Debit Funds</h3>
+                        </div>
+                    </div>
+                    <form class="row d-flex justify-content-center" action="/employee-debitfund" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <div class="col-md-4 ms-sm-1">
+                            <label class="visually-hidden" for="debit-acc-no">Username</label>
+                            <div class="input-group">
+                                <div class="input-group-text">Account Number</div>
+                                <input type="number" name="accno" class="form-control" id="debit-acc-no">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="visually-hidden" for="debit-amount">Username</label>
+                            <div class="input-group">
+                                <div class="input-group-text">Amount(Rs.)</div>
+                                <input type="number" name="ammount" class="form-control" id="debit-amount">
+                            </div>
+                        </div>
+                        <div class="col-md-3 float-none">
+                            <button class="btn btn-info text-dark my-3" type="submit" id="button-addon2">Debit
+                                Funds</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-transfer-fund" role="tabpanel" aria-labelledby="nav-transfer-fund-tab">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-12 d-flex justify-content-center my-4">
+                            <h3 class="">Transfer Funds</h3>
+                        </div>
+                    </div>
+                    <form class="row d-flex justify-content-center" action="/employee-transferfund" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <div class="col-md-3">
+                            <div class="input-group my-3">
+                                <label class="visually-hidden" for="form-acc-no">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-text">From</div>
+                                    <input type="number" name="fromaccno" class="form-control" id="from-acc-no"
+                                        placeholder="Enter Account Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group my-3">
+                                <label class="visually-hidden" for="to-acc-no">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-text">To</div>
+                                    <input type="number" name="toaccno" class="form-control" id="to-acc-no"
+                                        placeholder="Enter Account Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group my-3">
+                                <label class="visually-hidden" for="transfer-amount">Username</label>
+                                <div class="input-group">
+                                    <div class="input-group-text">Amount(Rs.)</div>
+                                    <input type="number" name="ammount" class="form-control" id="transfer-amount">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 float-none">
+                            <button class="btn btn-info text-dark my-3" type="submit" id="button-addon2">Transfer
+                                Funds</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <script src="js/script.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+.edit-details{
+    /* border-left: 2px solid rgb(128, 124, 124); */
+    /* border-bottom: 2px solid black; */
+    /* border-right: 2px solid rgb(141, 137, 137); */
+    height: 33rem;
+}
+
+nav .nav-tabs{
+    display: flex;
+    justify-content: center;
+}
+
+.error input.invalid{
+    border: 1px solid red;
+}
+
+.float-none{
+    margin-left: 8rem;
+}
+
+@media (max-width: 680px) {
+    .name h4{
+        font-size: 1rem;
+    }
+    .edit-details .row .d-flex h1{
+        font-size: 1.4rem;
+    }
+}
+@media (max-width: 510px) {
+    .name h4{
+        font-size: 0.7rem;
+    }
+}
+@media (max-width: 380x) {
+    .name h4{
+        font-size: 0.3rem;
+    }
+}

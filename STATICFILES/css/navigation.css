@@ -1,0 +1,28 @@
+/* .customer .row {
+    margin-top: 3rem;
+}
+
+.customer .row .logo {
+    margin: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.customer .row .logo a {
+    color: white;
+    text-decoration: none;
+} */
+
+.header {
+    background: rgb(185, 24, 235);
+    height: 4rem;
+}
+
+@media (max-width: 850px) {
+    .size{
+        font-size: 1.3rem;
+        margin-top: 0.8rem;
+    }
+}

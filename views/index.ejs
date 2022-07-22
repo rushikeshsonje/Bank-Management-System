@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Management System</title>
+    <!-- <link rel="stylesheet" href="../STATICFILES/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand ms-5" href="#">STAR</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse ms-4" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contactus">Contact Us</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-primary me-3" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-site container-fluid">
+
+        <!-- Home section  -->
+        <section class="site-banner" id="home">
+            <div class="container-fluid starbg">
+                <div class="site-title py-5">
+                    <h1 class="title-text">Welcome to the</h1>
+                    <h1 class="title-text">STAR Bank </h1>
+                    <h1 class="title-text">Services!</h1>
+                    <div class="site-buttons mt-3">
+                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+                            data-bs-target="#employeelogin">Employee Login</button>
+                        <div class="modal <%= hasError ? 'loginModal': '' %> fade" id="employeelogin" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Employee Login</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="errormessage container d-flex justify-content-center mt-2">
+                                        <div class="row w-50">
+                                            <% if(message.length > 0) { %>
+                                                <div class="alert py-1 mb-0 text-center alert-danger">
+                                                    <%= message %>
+                                                </div>
+                                                <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/employee" method="POST">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                            <div class="error mb-3">
+                                                <label for="employee-email" class="mt-0 col-form-label">Email:</label>
+                                                <input  class="form-control <%= validationErrors.find(e => e.param === 'email') ? 'invalid': '' %>" 
+                                                    type="email" placeholder="Enter employee Email" name="email"
+                                                    id="employee-name" value="<%= oldInput.email %>">
+                                            </div>
+                                            <div class="error mb-3">
+                                                <label for="employee-pass" class="col-form-label">Password:</label>
+                                                <input  class="form-control <%= validationErrors.find(e => e.param === 'password') ? 'invalid': '' %>" 
+                                                    type="password" placeholder="Enter Your Password" name="password"
+                                                    id="employee-pass" value="<%= oldInput.password %>">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" value="login"
+                                                    class="btn btn-primary">Login</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-info ms-2" data-bs-toggle="modal"
+                            data-bs-target="#customerlogin">Customer Login</button>
+                        <div class="modal <%= hasError2 ? 'loginModal': '' %> fade" id="customerlogin" tabindex="-1" aria-labelledby="exampleModalLabel1"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel1">Customer Login</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="errormessage container d-flex justify-content-center mt-2">
+                                        <div class="row w-50">
+                                            <% if(message.length > 0) { %>
+                                                <div class="alert py-1 mb-0 text-center alert-danger">
+                                                    <%= message %>
+                                                </div>
+                                                <% } %>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/customer" , method="post">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                            <div class="error mb-3">
+                                                <label for="customer-email" class="col-form-label">Email:</label>
+                                                <input type="email" placeholder="Enter Your Email" class="form-control <%= validationErrors2.find(e => e.param === 'customeremail') ? 'invalid': '' %>"
+                                                    id="customer-name" name="customeremail" value="<%= oldInput.customeremail %>">
+                                            </div>
+                                            <div class="error mb-3">
+                                                <label for="customer-pass" class="col-form-label">Password:</label>
+                                                <input type="password" placeholder="Enter Your Password"
+                                                    class="form-control <%= validationErrors2.find(e => e.param === 'customerpass') ? 'invalid': '' %>" id="customer-pass" name="customerpass" value="<%= oldInput.customerpass %>">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" value="login"
+                                                    class="btn btn-primary">Login</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Home section end -->
+
+        <!-- About Us Secion  -->
+        <section class="about-us" id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="about-title text-center mb-5">
+                        <h1>About Us</h1>
+                    </div>
+                    <div class=" col-lg-12 about-content text-center px-5 mb-5">
+                        STAR is an Indian multinational public sector banking and finansial srevices statutory body,
+                        fostering the nation's 2.5 trillion-doller economy and serving the hopes of its vast
+                        population.
+                    </div>
+                    <div class="col-lg-6 col-sm-12 px-5 pb-3 about-info">
+                        For STAR , the interests of the common man have always remained at the core of its business.
+                        With a customer centric approach, the Bankers designed products and services to meet the
+                        expectations of the financial life cycle of its valued clientle. Keeping pace with the
+                        transforming landscape of the Indian economy. STAR has broadened its digital base in the recent
+                        years.
+                    </div>
+                    <div class="col-lg-5 ms-5 image">
+                        <img src="img/Back to work-amico.svg" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About section end  -->
+
+        <!-- Services section  -->
+        <section class="services" id="services">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 services-title text-center mb-5">
+                        <h1>Presenting Products and Services that are right for you!</h1>
+                    </div>
+                </div>
+                <div class="row justify-content-around">
+                    <div class="col-lg-3 services-section mb-5">
+                        <div class="icon mb-4 mt-3 text-center">
+                            <i class="fas fa-tv fa-4x"></i>
+                        </div>
+                        <h3 class="text-center">Online Business</h3>
+                        <p class="text-center">Explore the power of simpler and smarter banking. Bank online with over
+                            250 services</p>
+                    </div>
+                    <div class="col-lg-3 services-section mb-5">
+                        <div class="icon mb-4 mt-3 text-center">
+                            <i class="fas fa-business-time fa-4x"></i>
+                        </div>
+                        <h3 class="text-center">Business Plans</h3>
+                        <p class="text-center">From shares to shopping centres and term deposits to toll roads, there
+                            a huge range of
+                            investments to choose</p>
+                    </div>
+                    <div class="col-lg-3 services-section mb-5">
+                        <div class="icon mb-4 mt-3 text-center">
+                            <i class="fas fa-phone-laptop fa-4x"></i>
+                        </div>
+                        <h3 class="text-center">Mobile Bank</h3>
+                        <p class="text-center">Explore the power of simpler and smarter banking. Bank online with over
+                            250 services</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- services section end  -->
+
+    <div id="contactus" class="d-flex flex-column footer">
+        <div class="container-fluid flex-grow-1 flex-shrink-0">
+            <div class="px-lg-5">
+                <div class="row py-2">
+                    <div class="col-lg-12 mx-auto text-white text-center">
+                        <!-- Footer -->
+                        <footer class="footer-section mt-5">
+                            <h1 class="text-white display-4 mt-2">Contact Us</h1>
+                            <p class="text-white lead mb-2">Please Visite Our Bank
+                            </p>
+                            <div class="container py-5">
+                                <div class="row py-4">
+                                    <div class="remove-sm col-lg-3 ms-5 col-sm-auto mb-4 mb-lg-0">
+                                        <h6 class="text-uppercase text-white font-weight-bold mb-4">Shop</h6>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2"><a href="#" class="text-white">For Women</a></li>
+                                            <li class="mb-2"><a href="#" class="text-white">For Men</a></li>
+                                            <li class="mb-2"><a href="#" class="text-white">Stores</a></li>
+                                            <li class="mb-2"><a href="#" class="text-white">Our Blog</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="remove-sm col-lg-3 mb-4 col-sm-auto mb-lg-0">
+                                        <h6 class="text-uppercase text-white font-weight-bold mb-4">Company</h6>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2"><a href="#" class="text-white">Login</a></li>
+                                            <li class="mb-2"><a href="#" class="text-white">Register</a></li>
+                                            <li class="mb-2"><a href="#" class="text-white">Wishlist</a></li>
+                                            <li class="mb-2"><a href="#" class="text-white">Our Products</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 mb-lg-0">
+                                        <h6 class="text-uppercase text-white font-weight-bold mb-4">Newsletter</h6>
+                                        <p class="text-white mb-4">Email Us Your Query!!</p>
+                                        <div class="p-1 rounded border">
+                                            <div class="input-group">
+                                                <input type="email" placeholder="Enter your email address"
+                                                    aria-describedby="button-addon1"
+                                                    class="form-control border-0 shadow-0">
+                                                <div class="input-group-append">
+                                                    <button id="button-addon1" type="submit" class="btn btn-link"><i
+                                                            class="fa fa-paper-plane"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Copyrights -->
+                            <div class="bg-light border border-info border-start-0 border-end-0 border-bottom-0 border-2 py-1">
+                                <div class="container text-center">
+                                    <p class="text-dark mb-0 py-1">Copyright © Rushikesh Sonje 2021 All rights
+                                        reserved.</p>
+                                </div>
+                            </div>
+                        </footer>
+                        <!-- End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End -->
+    </div>
+    <script src="js/script.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
